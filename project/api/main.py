@@ -1,9 +1,11 @@
 import uvicorn
 from project.config import settings
-
+from project.api.routes import word_cloud
 from fastapi import FastAPI
 
 app = FastAPI()
+
+app.include_router(word_cloud.router, tags=["word cloud"])
 
 
 @app.get("/health_check/")

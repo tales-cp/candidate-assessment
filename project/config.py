@@ -4,6 +4,7 @@ from dynaconf import Dynaconf, Validator
 settings = Dynaconf(
     envvar_prefix=False,
     environments=True,
+    load_dotenv=True,
     validators=[
         Validator(
             "DB_CONNECTION_STRING",
