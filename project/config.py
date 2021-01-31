@@ -7,6 +7,10 @@ settings = Dynaconf(
     validators=[
         Validator(
             "DB_CONNECTION_STRING",
+            "CONSUMER_KEY",
+            "CONSUMER_SECRET",
+            "ACCESS_TOKEN",
+            "ACCESS_TOKEN_SECRET",
             must_exist=True,
         ),
         Validator("HOSTNAME", is_type_of=str, default=""),

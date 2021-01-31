@@ -17,6 +17,7 @@ cryptography = "^3.1"
 bcrypt = "^3.2.0"
 passlib = "^1.7.2"
 dynaconf = "^3.1.2"
+tweepy = "^3.10.0"
 
 [tool.poetry.dev-dependencies]
 black = "^20.8b1"
