@@ -1,3 +1,6 @@
+from typing import Union
+
+from fastapi import HTTPException, Response
 from fastapi.routing import APIRouter
 from project.config import settings
 from project.services.word_cloud_service.word_cloud import WordCloud
@@ -21,12 +24,14 @@ word_cloud_service = WordCloudService(twitter_client)
 
 
 @router.get("/word_cloud/{hashtag}/")
-def get_word_cloud(hashtag: str) -> WordCloud:
-    tweets = word_cloud_service.get_word_cloud(hashtag, 100)
+def get_word_cloud(
+    hashtag: str, max_words: int = 100, response_format: str = "json"
+) -> Union[WordCloud, Response]:
+    word_cloud_response = word_cloud_service.get_word_cloud(hashtag, max_words)
+    if not word_cloud_response:
+        raise HTTPException(status_code=404, detail="Hashtag not found")
 
-    return WordCloud(
-        word_count={},
-        topic="",
-        first_tweet_date="10/10/2021",
-        last_tweet_date="10/10/2021",
-    )
+    if response_format == "csv":
+        return Response(content=word_cloud_response.to_csv(), media_type="text/csv")
+
+    return word_cloud_response

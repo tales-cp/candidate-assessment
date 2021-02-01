@@ -33,6 +33,12 @@ class TestWordCloudService:
         return WordCloudService(twitter_client)
 
     def test_update_word_count(self, word_cloud_service: WordCloudService) -> None:
-        word_cloud = word_cloud_service.get_word_cloud("something", 100)
+        word_cloud = word_cloud_service.get_word_cloud("something", 3)
         assert word_cloud.word_count["father"] == 3  # type: ignore
         assert word_cloud.word_count.get("rt") is None  # type: ignore
+        assert len(word_cloud.word_count.items()) == 3  # type: ignore
+
+    def test_word_count_csv(self, word_cloud_service: WordCloudService) -> None:
+        word_cloud = word_cloud_service.get_word_cloud("something", 3)
+        csv = word_cloud.to_csv()    # type: ignore
+        assert len(csv) > 0
