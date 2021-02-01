@@ -5,7 +5,7 @@ from fastapi.routing import APIRouter
 from fastapi.security import APIKeyQuery, APIKeyHeader
 from starlette.status import HTTP_403_FORBIDDEN
 
-API_KEY = "1234567asdfgh"
+API_KEY = "abcdefghijklmnopqrstuvxz"
 API_KEY_NAME = "access_token"
 
 api_key_query = APIKeyQuery(name=API_KEY_NAME, auto_error=False)

@@ -20,7 +20,7 @@ class TwitterClient:
         for tweet in tweepy.Cursor(
             self.api.search_30_day,
             environment_name="dev",
-            query=hashtag,
+            query=f"#{hashtag}",
             fromDate=(datetime.today() - timedelta(days=1)).strftime("%Y%m%d%H%M"),
         ).items(max_items):
             tweets.append(

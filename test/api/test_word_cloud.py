@@ -8,7 +8,9 @@ client = TestClient(app)
 
 class TestWordCloudAPI:
     def test_word_cloud(self) -> None:
-        response = client.get("/word_cloud/bbb21/?access_token=1234567asdfgh")
+        response = client.get(
+            "/word_cloud/bbb21/?access_token=abcdefghijklmnopqrstuvxz"
+        )
         assert response.status_code == http.HTTPStatus.OK
 
     def test_word_cloud_without_access_key(self) -> None:
