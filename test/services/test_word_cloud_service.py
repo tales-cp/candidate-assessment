@@ -40,5 +40,5 @@ class TestWordCloudService:
 
     def test_word_count_csv(self, word_cloud_service: WordCloudService) -> None:
         word_cloud = word_cloud_service.get_word_cloud("something", 3)
-        csv = word_cloud.to_csv()    # type: ignore
+        csv = word_cloud.to_csv()  # type: ignore
         assert len(csv) > 0

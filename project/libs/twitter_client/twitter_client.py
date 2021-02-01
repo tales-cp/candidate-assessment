@@ -4,6 +4,8 @@ import tweepy
 
 from project.libs.twitter_client.tweet import Tweet
 from project.libs.twitter_client.twitter_client_config import TwitterClientConfig
+from datetime import datetime
+from datetime import timedelta
 
 
 class TwitterClient:
@@ -15,7 +17,12 @@ class TwitterClient:
 
     def search_by_hashtag(self, hashtag: str, max_items: int = 100) -> List[Tweet]:
         tweets: List[Tweet] = []
-        for tweet in tweepy.Cursor(self.api.search, q=hashtag).items(max_items):
+        for tweet in tweepy.Cursor(
+            self.api.search_30_day,
+            environment_name="dev",
+            query=hashtag,
+            fromDate=(datetime.today() - timedelta(days=1)).strftime("%Y%m%d%H%M"),
+        ).items(max_items):
             tweets.append(
                 Tweet(
                     text=tweet.text,

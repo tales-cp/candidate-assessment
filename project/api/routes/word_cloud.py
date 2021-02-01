@@ -1,7 +1,10 @@
 from typing import Union
 
-from fastapi import HTTPException, Response
+from fastapi import HTTPException, Response, Depends
+from fastapi.openapi.models import APIKey
 from fastapi.routing import APIRouter
+
+from project.api.routes.auth import get_api_key
 from project.config import settings
 from project.services.word_cloud_service.word_cloud import WordCloud
 from project.libs.twitter_client.twitter_client import TwitterClient
@@ -25,7 +28,10 @@ word_cloud_service = WordCloudService(twitter_client)
 
 @router.get("/word_cloud/{hashtag}/")
 def get_word_cloud(
-    hashtag: str, max_words: int = 100, response_format: str = "json"
+    hashtag: str,
+    max_words: int = 100,
+    response_format: str = "json",
+    api_key: APIKey = Depends(get_api_key),
 ) -> Union[WordCloud, Response]:
     word_cloud_response = word_cloud_service.get_word_cloud(hashtag, max_words)
     if not word_cloud_response:

@@ -8,9 +8,9 @@ app = FastAPI()
 app.include_router(word_cloud.router, tags=["word cloud"])
 
 
-@app.get("/health_check/")
+@app.get("/")
 def health_check() -> str:
-    return "OK"
+    return ""
 
 
 if __name__ == "__main__":
